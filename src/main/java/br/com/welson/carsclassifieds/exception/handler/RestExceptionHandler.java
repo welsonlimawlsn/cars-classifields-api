@@ -1,6 +1,8 @@
 package br.com.welson.carsclassifieds.exception.handler;
 
 import br.com.welson.carsclassifieds.exception.CustomConstraintViolationException;
+import br.com.welson.carsclassifieds.exception.CustomDataIntegrityViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,4 +27,18 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .build();
         return new ResponseEntity<>(customConstraintViolationException, BAD_REQUEST);
     }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<?> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+        CustomDataIntegrityViolationException customDataIntegrityViolationException = CustomDataIntegrityViolationException.Builder.builder()
+                .timestamp(new Date().getTime())
+                .status(BAD_REQUEST.value())
+                .title("Bad Request")
+                .detail(e.getRootCause().getMessage())
+                .developerMessage(e.getClass().getName())
+                .build();
+        return new ResponseEntity<>(customDataIntegrityViolationException, BAD_REQUEST);
+    }
+
+
 }

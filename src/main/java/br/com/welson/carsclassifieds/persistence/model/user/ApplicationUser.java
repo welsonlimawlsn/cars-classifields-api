@@ -17,9 +17,9 @@ public class ApplicationUser extends AbstractEntity {
     @NotEmpty
     @Column(nullable = false)
     private String password;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Admin admin;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Seller seller;
 
     public ApplicationUser() {

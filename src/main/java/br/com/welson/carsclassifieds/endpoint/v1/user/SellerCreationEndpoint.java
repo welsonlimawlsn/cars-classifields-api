@@ -6,21 +6,23 @@ import br.com.welson.carsclassifieds.persistence.model.user.ApplicationUser;
 import br.com.welson.carsclassifieds.persistence.repositoty.user.ApplicationUserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("v1/account")
-public class ApplicationUserEndpoint {
+public class SellerCreationEndpoint {
 
     private final ApplicationUserRepository applicationUserRepository;
     private final EndpointUtil endpointUtil;
 
-    public ApplicationUserEndpoint(ApplicationUserRepository applicationUserRepository, EndpointUtil endpointUtil) {
+    public SellerCreationEndpoint(ApplicationUserRepository applicationUserRepository, EndpointUtil endpointUtil) {
         this.applicationUserRepository = applicationUserRepository;
         this.endpointUtil = endpointUtil;
     }
@@ -34,7 +36,7 @@ public class ApplicationUserEndpoint {
     }
 
     private void verifyIfSellerIsNotNull(ApplicationUser applicationUser) {
-        if(!(applicationUser.getAdmin() == null && applicationUser.getSeller() != null)) {
+        if (!(applicationUser.getAdmin() == null && applicationUser.getSeller() != null)) {
             throw new BadRequestException("Seller cannot be null");
         }
     }
