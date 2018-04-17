@@ -2,13 +2,14 @@ package br.com.welson.carsclassifieds.persistence.model.user;
 
 import br.com.welson.carsclassifieds.persistence.model.util.AbstractEntity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-public class UserApplication extends AbstractEntity {
+public class ApplicationUser extends AbstractEntity {
 
     @NotEmpty
     @Column(nullable = false, unique = true)
@@ -16,10 +17,20 @@ public class UserApplication extends AbstractEntity {
     @NotEmpty
     @Column(nullable = false)
     private String password;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Admin admin;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Seller seller;
+
+    public ApplicationUser() {
+    }
+
+    public ApplicationUser(ApplicationUser applicationUser) {
+        this.username = applicationUser.username;
+        this.password = applicationUser.password;
+        this.admin = applicationUser.admin;
+        this.seller = applicationUser.seller;
+    }
 
     public String getUsername() {
         return username;
