@@ -33,7 +33,6 @@ public class SellerCreationEndpoint {
         verifyIfSellerIsNotNull(applicationUser);
         applicationUser.setPassword(endpointUtil.encodePassword(applicationUser.getPassword()));
         ApplicationUser applicationUserSaved = applicationUserRepository.save(applicationUser);
-        applicationUserSaved.setPassword(null);
         return new ResponseEntity<>(applicationUserSaved, CREATED);
     }
 
