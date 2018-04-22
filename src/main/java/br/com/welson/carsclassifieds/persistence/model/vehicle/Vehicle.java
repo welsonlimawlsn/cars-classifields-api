@@ -2,6 +2,7 @@ package br.com.welson.carsclassifieds.persistence.model.vehicle;
 
 import br.com.welson.carsclassifieds.persistence.model.user.Seller;
 import br.com.welson.carsclassifieds.persistence.model.util.AbstractEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,8 +24,8 @@ public class Vehicle extends AbstractEntity {
     private Double price;
     @NotNull
     private Long miles;
-    @NotNull
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Seller seller;
 
     public Model getModel() {

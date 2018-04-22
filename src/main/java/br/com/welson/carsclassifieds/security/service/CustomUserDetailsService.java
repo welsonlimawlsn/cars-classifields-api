@@ -42,7 +42,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            List<GrantedAuthority> authorityListAdmin = createAuthorityList("ROLE_PROFESSOR");
+            List<GrantedAuthority> authorityListAdmin = createAuthorityList("ROLE_ADMIN");
             List<GrantedAuthority> authorityListSeller = createAuthorityList("ROLE_SELLER");
             return this.getAdmin() != null ? authorityListAdmin : authorityListSeller;
         }
